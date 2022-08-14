@@ -37,5 +37,5 @@ private fun getFakeGithubUserDetail(login: String): GithubUserDetail? {
     return getFakeGithubUserDetail(login)
 }
 
-// todo
+// todo Убрать это, когда подключим retrofit
 private var fakeFakeGithubUsersData: List<GithubUser>? = null
