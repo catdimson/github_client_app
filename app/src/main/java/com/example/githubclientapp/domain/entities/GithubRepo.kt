@@ -1,7 +1,11 @@
 package com.example.githubclientapp.domain.entities
 
-class GithubRepo {
+data class GithubRepo(
 
+    val id: Int,
+    val name: String,
+    val fullName: String,
+    val description: String,
+    val url: String
 
-
-}
+)

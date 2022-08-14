@@ -1,7 +1,8 @@
 package com.example.githubclientapp.domain.entities
 
-class GithubUser {
+data class GithubUser(
 
+    val id: Int,
+    val login: String
 
-
-}
+)
