@@ -7,6 +7,6 @@ interface GithubUserRepository {
 
     fun findAll(): List<GithubUser>
 
-    fun findById(): GithubUserDetail
+    fun findByLogin(login: String): GithubUserDetail?
 
 }
