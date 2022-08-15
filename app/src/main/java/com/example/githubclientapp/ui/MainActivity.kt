@@ -1,8 +1,10 @@
 package com.example.githubclientapp.ui
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubclientapp.app
 import com.example.githubclientapp.databinding.ActivityMainBinding
@@ -28,22 +30,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initIncomingEvents() {
-        viewModel.usersLiveDataToObserve.observe(this) { data ->
-            when (data) {
-                is AppState.SuccessLoadUsers -> {
-                    val githubUsers = data.githubUsers
-                    adapter.setData(githubUsers!!)
-                    print("Успех")
-                }
-                is AppState.Loading -> {
-                    //todo скрывать/показывать прогресс бар
-                    print("Загрузка")
-                }
-                is AppState.Error -> {
-                    //todo будет обработка ошибки
-                    print("Ошибка")
-                }
-            }
+        viewModel.usersLiveDataToObserve.observe(this) {
+            adapter.setData(it)
+        }
+        viewModel.showProgressBar.observe(this) { inProgress ->
+            activateProgressBar(inProgress)
         }
     }
 
@@ -55,5 +46,11 @@ class MainActivity : AppCompatActivity() {
         binding.listUsersRecyclerView.layoutManager = LinearLayoutManager(this)
         adapter.setHasStableIds(true)
         binding.listUsersRecyclerView.adapter = adapter
+    }
+
+    private fun activateProgressBar(activate: Boolean) {
+        with(binding.loader.loadingLayout) {
+            isVisible = activate
+        }
     }
 }
