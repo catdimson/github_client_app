@@ -8,7 +8,7 @@ import com.example.githubclientapp.ui.KEY_USER_LOGIN
 import com.example.githubclientapp.ui.UserDetailActivity
 import com.example.githubclientapp.ui.recyclers.main.viewholder.GithubUserViewHolder
 
-class GithubUserAdapter: RecyclerView.Adapter<GithubUserViewHolder>() {
+class GithubUserAdapter : RecyclerView.Adapter<GithubUserViewHolder>() {
 
     private var data: List<GithubUser> = emptyList()
 
@@ -17,7 +17,8 @@ class GithubUserAdapter: RecyclerView.Adapter<GithubUserViewHolder>() {
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubUserViewHolder = GithubUserViewHolder.create(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GithubUserViewHolder =
+        GithubUserViewHolder.create(parent)
 
     override fun onBindViewHolder(holder: GithubUserViewHolder, position: Int) {
         holder.bind(getItem(position))
@@ -26,16 +27,12 @@ class GithubUserAdapter: RecyclerView.Adapter<GithubUserViewHolder>() {
             val intent = Intent(holder.itemView.context, UserDetailActivity::class.java)
             intent.putExtra(KEY_USER_LOGIN, githubUser.login)
             holder.itemView.context.startActivity(intent)
-//            githubUser.id
-//            Toast.makeText(itemView.context, githubUser.login, Toast.LENGTH_LONG).show()
-
         }
     }
 
     override fun getItemCount(): Int = data.size
 
     private fun getItem(pos: Int): GithubUser = data[pos]
-
 
 
 }

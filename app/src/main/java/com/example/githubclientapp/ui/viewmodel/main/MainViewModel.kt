@@ -5,11 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubclientapp.domain.entities.GithubUser
 import com.example.githubclientapp.domain.repository.GithubUserRepository
-import com.example.githubclientapp.ui.AppState
 
 class MainViewModel(
     private val githubUserRepository: GithubUserRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _usersLiveDataToObserve = MutableLiveData<List<GithubUser>>()
     private val _showProgressBar = MutableLiveData<Boolean>()

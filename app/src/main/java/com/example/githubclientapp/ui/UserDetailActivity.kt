@@ -5,20 +5,15 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubclientapp.app
-import com.example.githubclientapp.databinding.ActivityMainBinding
 import com.example.githubclientapp.databinding.ActivityUserDetailBinding
 import com.example.githubclientapp.domain.entities.GithubUserDetail
-import com.example.githubclientapp.ui.recyclers.main.adapter.GithubUserAdapter
 import com.example.githubclientapp.ui.recyclers.userdetail.adapter.GithubRepoAdapter
-import com.example.githubclientapp.ui.viewmodel.main.MainViewModel
-import com.example.githubclientapp.ui.viewmodel.main.MainViewModelFactory
 import com.example.githubclientapp.ui.viewmodel.userdetail.UserDetailViewModel
 import com.example.githubclientapp.ui.viewmodel.userdetail.UserDetailViewModelFactory
-import kotlin.math.log
 
 const val KEY_USER_LOGIN = "KEY_USER_LOGIN"
 
-class UserDetailActivity: AppCompatActivity() {
+class UserDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserDetailBinding
     private val viewModel: UserDetailViewModel by viewModels {

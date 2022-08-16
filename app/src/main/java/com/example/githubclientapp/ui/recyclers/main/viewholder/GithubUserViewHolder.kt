@@ -8,7 +8,7 @@ import com.example.githubclientapp.domain.entities.GithubUser
 
 class GithubUserViewHolder(
     private val binding: ItemUserBinding
-): RecyclerView.ViewHolder(binding.root) {
+) : RecyclerView.ViewHolder(binding.root) {
 
     companion object {
         fun create(parent: ViewGroup): GithubUserViewHolder {

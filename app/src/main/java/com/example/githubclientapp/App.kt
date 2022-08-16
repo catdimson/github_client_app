@@ -5,7 +5,7 @@ import android.content.Context
 import com.example.githubclientapp.data.MockGithubUserRepositoryImpl
 import com.example.githubclientapp.domain.repository.GithubUserRepository
 
-class App: Application() {
+class App : Application() {
 
     val githubUserRepository: GithubUserRepository by lazy { MockGithubUserRepositoryImpl() }
 

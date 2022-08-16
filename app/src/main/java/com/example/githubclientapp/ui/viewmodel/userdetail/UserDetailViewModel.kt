@@ -8,7 +8,7 @@ import com.example.githubclientapp.domain.repository.GithubUserRepository
 
 class UserDetailViewModel(
     private val githubUserRepository: GithubUserRepository
-): ViewModel() {
+) : ViewModel() {
 
     private val _userDetailLiveDataToObserve = MutableLiveData<GithubUserDetail>()
     val userDetailLiveDataToObserve: LiveData<GithubUserDetail> = _userDetailLiveDataToObserve
