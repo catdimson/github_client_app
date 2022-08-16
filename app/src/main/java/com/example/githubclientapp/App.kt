@@ -2,12 +2,12 @@ package com.example.githubclientapp
 
 import android.app.Application
 import android.content.Context
-import com.example.githubclientapp.data.GithubApi
-import com.example.githubclientapp.data.RetorfitGithubUserApiImpl
+import com.example.githubclientapp.data.RetrofitGithubUserApiImpl
+import com.example.githubclientapp.domain.repository.GithubUserRepository
 
 class App : Application() {
 
-    val githubUserApi: GithubApi by lazy { RetorfitGithubUserApiImpl() }
+    val githubUserApi: GithubUserRepository by lazy { RetrofitGithubUserApiImpl() }
 
 }
 

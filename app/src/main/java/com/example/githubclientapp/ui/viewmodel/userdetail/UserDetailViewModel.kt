@@ -16,7 +16,7 @@ class UserDetailViewModel(
     fun onShowUserDetail(login: String) {
         val userDetail = githubUserApi.findByLogin(login)
         userDetail.let {
-            _userDetailLiveDataToObserve.postValue(userDetail)
+//            _userDetailLiveDataToObserve.postValue(userDetail)
         }
     }
 }

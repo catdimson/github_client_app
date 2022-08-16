@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
             adapter.setData(it)
         }
         viewModel.showProgressBar.observe(this) { inProgress ->
-            activateProgressBar(inProgress)
+            binding.loader.loadingLayout.isVisible = inProgress
         }
     }
 
@@ -45,11 +45,5 @@ class MainActivity : AppCompatActivity() {
         binding.listUsersRecyclerView.layoutManager = LinearLayoutManager(this)
         adapter.setHasStableIds(true)
         binding.listUsersRecyclerView.adapter = adapter
-    }
-
-    private fun activateProgressBar(activate: Boolean) {
-        with(binding.loader.loadingLayout) {
-            isVisible = activate
-        }
     }
 }

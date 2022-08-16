@@ -1,11 +1,8 @@
 package com.example.githubclientapp.ui.recyclers.main.adapter
 
-import android.content.Intent
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubclientapp.domain.entities.GithubUser
-import com.example.githubclientapp.ui.KEY_USER_LOGIN
-import com.example.githubclientapp.ui.UserDetailActivity
 import com.example.githubclientapp.ui.recyclers.main.viewholder.GithubUserViewHolder
 
 class GithubUserAdapter : RecyclerView.Adapter<GithubUserViewHolder>() {
