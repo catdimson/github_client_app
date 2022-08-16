@@ -1,7 +1,7 @@
 package com.example.githubclientapp.data
 
+import com.example.githubclientapp.domain.entities.GithubRepo
 import com.example.githubclientapp.domain.entities.GithubUser
-import com.example.githubclientapp.domain.entities.GithubUserDetail
 import com.example.githubclientapp.domain.repository.GithubUserRepository
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Call
@@ -34,17 +34,17 @@ class RetrofitGithubUserApiImpl : GithubUserRepository {
         }
     }
 
-    override fun observeRepo(login: String): Single<GithubUserDetail> {
+    override fun observeRepo(login: String): Single<List<GithubRepo>> {
         return Single.create { emitter ->
-            api.findByLogin(login).enqueue(object : Callback<GithubUserDetail> {
+            api.findByLogin(login).enqueue(object : Callback<List<GithubRepo>> {
                 override fun onResponse(
-                    call: Call<GithubUserDetail>,
-                    response: Response<GithubUserDetail>
+                    call: Call<List<GithubRepo>>,
+                    response: Response<List<GithubRepo>>
                 ) {
                     emitter.onSuccess(response.body()!!)
                 }
 
-                override fun onFailure(call: Call<GithubUserDetail>, t: Throwable) {
+                override fun onFailure(call: Call<List<GithubRepo>>, t: Throwable) {
                     emitter.onError(t)
                 }
             })
