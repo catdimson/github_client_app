@@ -14,7 +14,7 @@ import com.example.githubclientapp.ui.viewmodel.main.MainViewModelFactory
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory(app.githubUserRepository)
+        MainViewModelFactory(app.githubUserApi)
     }
     private val adapter = GithubUserAdapter()
 

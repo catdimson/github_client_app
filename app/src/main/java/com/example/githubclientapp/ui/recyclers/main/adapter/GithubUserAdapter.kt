@@ -22,12 +22,12 @@ class GithubUserAdapter : RecyclerView.Adapter<GithubUserViewHolder>() {
 
     override fun onBindViewHolder(holder: GithubUserViewHolder, position: Int) {
         holder.bind(getItem(position))
-        holder.itemView.setOnClickListener { itemView ->
-            val githubUser = getItem(position)
-            val intent = Intent(holder.itemView.context, UserDetailActivity::class.java)
-            intent.putExtra(KEY_USER_LOGIN, githubUser.login)
-            holder.itemView.context.startActivity(intent)
-        }
+//        holder.itemView.setOnClickListener { itemView ->
+//            val githubUser = getItem(position)
+//            val intent = Intent(holder.itemView.context, UserDetailActivity::class.java)
+//            intent.putExtra(KEY_USER_LOGIN, githubUser.login)
+//            holder.itemView.context.startActivity(intent)
+//        }
     }
 
     override fun getItemCount(): Int = data.size

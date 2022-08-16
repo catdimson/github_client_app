@@ -17,7 +17,7 @@ class UserDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUserDetailBinding
     private val viewModel: UserDetailViewModel by viewModels {
-        UserDetailViewModelFactory(app.githubUserRepository)
+        UserDetailViewModelFactory(app.githubUserApi)
     }
     private val adapter = GithubRepoAdapter()
 
