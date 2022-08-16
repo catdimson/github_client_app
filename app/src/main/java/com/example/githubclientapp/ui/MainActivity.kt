@@ -1,18 +1,17 @@
 package com.example.githubclientapp.ui
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubclientapp.app
 import com.example.githubclientapp.databinding.ActivityMainBinding
-import com.example.githubclientapp.ui.recyclers.adapter.GithubUserAdapter
+import com.example.githubclientapp.ui.recyclers.main.adapter.GithubUserAdapter
 import com.example.githubclientapp.ui.viewmodel.main.MainViewModel
 import com.example.githubclientapp.ui.viewmodel.main.MainViewModelFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity: AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels {
         MainViewModelFactory(app.githubUserRepository)

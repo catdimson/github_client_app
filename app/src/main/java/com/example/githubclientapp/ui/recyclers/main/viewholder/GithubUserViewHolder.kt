@@ -1,4 +1,4 @@
-package com.example.githubclientapp.ui.recyclers.veiwholder
+package com.example.githubclientapp.ui.recyclers.main.viewholder
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
