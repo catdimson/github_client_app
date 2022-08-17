@@ -1,4 +1,4 @@
-package com.example.githubclientapp.ui.viewmodel.main
+package com.example.githubclientapp.ui.viewmodel.userlist
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -8,7 +8,7 @@ import com.example.githubclientapp.domain.repository.GithubUserRepository
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
-class MainViewModel(
+class UserListViewModel(
     private val githubUserApi: GithubUserRepository
 ) : ViewModel() {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
