@@ -4,13 +4,10 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.githubclientapp.databinding.ActivityMainBinding
+import com.example.githubclientapp.domain.entities.GithubUser
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), UserListFragment.Controller {
     private lateinit var binding: ActivityMainBinding
-//    private val viewModel: MainViewModel by viewModels {
-//        MainViewModelFactory(app.githubUserApi)
-//    }
-//    private val adapter = GithubUserAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,22 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         initFragment()
-//        initIncomingEvents()
-//        initOutgoingEvents()
     }
-
-//    private fun initIncomingEvents() {
-//        viewModel.usersLiveDataToObserve.observe(this) {
-//            adapter.setData(it)
-//        }
-//        viewModel.showProgressBar.observe(this) { inProgress ->
-//            binding.loader.loadingLayout.isVisible = inProgress
-//        }
-//    }
-//
-//    private fun initOutgoingEvents() {
-//        viewModel.onShowUsers()
-//    }
 
     private fun initFragment() {
         val rootFragment: Fragment = UserListFragment()
@@ -42,8 +24,14 @@ class MainActivity : AppCompatActivity() {
             .addToBackStack(null)
             .replace(binding.rootFragmentContainer.id, rootFragment)
             .commit()
-//        binding.listUsersRecyclerView.layoutManager = LinearLayoutManager(this)
-//        adapter.setHasStableIds(true)
-//        binding.listUsersRecyclerView.adapter = adapter
+    }
+
+    override fun openUserDetailFragment(userDetail: GithubUser) {
+        val userDetailFragment = UserDetailFragment.newInstance(userDetail)
+        supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(binding.rootFragmentContainer.id, userDetailFragment)
+            .commit()
     }
 }
