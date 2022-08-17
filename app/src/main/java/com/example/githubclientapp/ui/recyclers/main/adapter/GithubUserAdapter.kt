@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.githubclientapp.domain.entities.GithubUser
 import com.example.githubclientapp.ui.KEY_USER_LOGIN
+import com.example.githubclientapp.ui.KEY_USER_URL_AVATAR
 import com.example.githubclientapp.ui.UserDetailActivity
 import com.example.githubclientapp.ui.recyclers.main.viewholder.GithubUserViewHolder
 
@@ -26,6 +27,7 @@ class GithubUserAdapter : RecyclerView.Adapter<GithubUserViewHolder>() {
             val githubUser = getItem(position)
             val intent = Intent(holder.itemView.context, UserDetailActivity::class.java)
             intent.putExtra(KEY_USER_LOGIN, githubUser.login)
+            intent.putExtra(KEY_USER_URL_AVATAR, githubUser.avatarUrl)
             holder.itemView.context.startActivity(intent)
         }
     }

@@ -2,12 +2,12 @@ package com.example.githubclientapp
 
 import android.app.Application
 import android.content.Context
-import com.example.githubclientapp.data.MockGithubUserRepositoryImpl
+import com.example.githubclientapp.data.RetrofitGithubUserApiImpl
 import com.example.githubclientapp.domain.repository.GithubUserRepository
 
 class App : Application() {
 
-    val githubUserRepository: GithubUserRepository by lazy { MockGithubUserRepositoryImpl() }
+    val githubUserApi: GithubUserRepository by lazy { RetrofitGithubUserApiImpl() }
 
 }
 

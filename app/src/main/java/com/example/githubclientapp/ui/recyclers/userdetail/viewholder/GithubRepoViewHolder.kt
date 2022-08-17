@@ -19,7 +19,6 @@ class GithubRepoViewHolder(
 
     fun bind(item: GithubRepo) {
         binding.apply {
-            repoId.text = item.id.toString()
             repoName.text = item.name
             repoFullName.text = item.fullName
             repoDescription.text = item.description

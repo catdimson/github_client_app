@@ -1,12 +1,11 @@
-package com.example.githubclientapp.domain.repository
+package com.example.githubclientapp.domain.repository;
 
+import com.example.githubclientapp.domain.entities.GithubRepo
 import com.example.githubclientapp.domain.entities.GithubUser
-import com.example.githubclientapp.domain.entities.GithubUserDetail
+import io.reactivex.rxjava3.core.Single
 
 interface GithubUserRepository {
+    fun observeUsers(): Single<List<GithubUser>>
 
-    fun findAll(): List<GithubUser>
-
-    fun findByLogin(login: String): GithubUserDetail?
-
+    fun observeRepo(login: String): Single<List<GithubRepo>>
 }
