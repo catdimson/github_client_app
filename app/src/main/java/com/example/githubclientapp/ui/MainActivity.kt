@@ -14,7 +14,9 @@ class MainActivity : AppCompatActivity(), UserListFragment.Controller {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initFragment()
+        if (savedInstanceState == null) {
+            initFragment()
+        }
     }
 
     private fun initFragment() {

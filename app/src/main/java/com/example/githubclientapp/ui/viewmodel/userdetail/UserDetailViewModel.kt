@@ -5,12 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.githubclientapp.domain.entities.GithubUserDetail
 import com.example.githubclientapp.domain.repository.GithubUserRepository
+import com.example.githubclientapp.ui.viewmodel.ViewModelWithId
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class UserDetailViewModel(
-    private val githubUserApi: GithubUserRepository
-) : ViewModel() {
+    private val githubUserApi: GithubUserRepository,
+    override val id: String
+) : ViewModel(), ViewModelWithId {
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
     private val _userDetailLiveDataToObserve = MutableLiveData<GithubUserDetail>()
     private val _showProgressBar = MutableLiveData<Boolean>()

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import com.example.githubclientapp.R
@@ -14,17 +13,16 @@ import com.example.githubclientapp.domain.entities.GithubUser
 import com.example.githubclientapp.domain.entities.GithubUserDetail
 import com.example.githubclientapp.ui.recyclers.userdetail.adapter.GithubRepoAdapter
 import com.example.githubclientapp.ui.viewmodel.userdetail.UserDetailViewModel
-import com.example.githubclientapp.ui.viewmodel.userdetail.UserDetailViewModelFactory
+import java.util.*
 
 const val KEY_USER = "KEY_USER"
+const val VM_USER_DETAIL_ID = "VM_USER_DETAIL_ID"
 
 class UserDetailFragment : Fragment(R.layout.fragment_user_detail) {
     private var _binding: FragmentUserDetailBinding? = null
     private val binding: FragmentUserDetailBinding
         get() = _binding!!
-    private val viewModel: UserDetailViewModel by viewModels {
-        UserDetailViewModelFactory(app.githubUserApi)
-    }
+    private lateinit var viewModel: UserDetailViewModel
     private val adapter = GithubRepoAdapter()
 
     companion object {
@@ -36,6 +34,19 @@ class UserDetailFragment : Fragment(R.layout.fragment_user_detail) {
         }
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        if (savedInstanceState != null) {
+            val vmID = savedInstanceState.getString(VM_USER_DETAIL_ID)!!
+            viewModel = app.viewModelStore.getViewModel(vmID) as UserDetailViewModel
+        } else {
+            val id = UUID.randomUUID().toString()
+            viewModel = UserDetailViewModel(app.githubUserApi, id)
+            app.viewModelStore.saveViewModel(viewModel)
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentUserDetailBinding.bind(view)
@@ -43,6 +54,11 @@ class UserDetailFragment : Fragment(R.layout.fragment_user_detail) {
         initView()
         initIncomingEvents()
         initOutgoingEvents(getUserFromArgs())
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(VM_USER_DETAIL_ID, viewModel.id)
     }
 
     private fun getUserFromArgs(): GithubUser {
@@ -66,7 +82,6 @@ class UserDetailFragment : Fragment(R.layout.fragment_user_detail) {
 
     private fun initView() {
         binding.userReposRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        adapter.setHasStableIds(true)
         binding.userReposRecyclerView.adapter = adapter
     }
 
