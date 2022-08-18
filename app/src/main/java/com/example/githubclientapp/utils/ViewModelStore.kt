@@ -7,7 +7,7 @@ class ViewModelStore {
     private val storage: MutableMap<String, ViewModelWithId> = WeakHashMap()
 
     fun saveViewModel(vm: ViewModelWithId) {
-        storage[vm.id] = vm
+        storage[vm.vmID] = vm
     }
 
     fun getViewModel(id: String): ViewModelWithId? {
