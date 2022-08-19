@@ -1,49 +1,39 @@
 package com.example.githubclientapp.ui
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.githubclientapp.app
+import androidx.fragment.app.Fragment
 import com.example.githubclientapp.databinding.ActivityMainBinding
-import com.example.githubclientapp.ui.recyclers.main.adapter.GithubUserAdapter
-import com.example.githubclientapp.ui.viewmodel.main.MainViewModel
-import com.example.githubclientapp.ui.viewmodel.main.MainViewModelFactory
+import com.example.githubclientapp.domain.entities.GithubUser
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), UserListFragment.Controller {
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: MainViewModel by viewModels {
-        MainViewModelFactory(app.githubUserApi)
-    }
-    private val adapter = GithubUserAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        initViews()
-        initIncomingEvents()
-        initOutgoingEvents()
-    }
-
-    private fun initIncomingEvents() {
-        viewModel.usersLiveDataToObserve.observe(this) {
-            adapter.setData(it)
-        }
-        viewModel.showProgressBar.observe(this) { inProgress ->
-            binding.loader.loadingLayout.isVisible = inProgress
+        if (savedInstanceState == null) {
+            initFragment()
         }
     }
 
-    private fun initOutgoingEvents() {
-        viewModel.onShowUsers()
+    private fun initFragment() {
+        val rootFragment: Fragment = UserListFragment()
+        supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(binding.rootFragmentContainer.id, rootFragment)
+            .commit()
     }
 
-    private fun initViews() {
-        binding.listUsersRecyclerView.layoutManager = LinearLayoutManager(this)
-        adapter.setHasStableIds(true)
-        binding.listUsersRecyclerView.adapter = adapter
+    override fun openUserDetailFragment(userDetail: GithubUser) {
+        val userDetailFragment = UserDetailFragment.newInstance(userDetail)
+        supportFragmentManager
+            .beginTransaction()
+            .addToBackStack(null)
+            .replace(binding.rootFragmentContainer.id, userDetailFragment)
+            .commit()
     }
 }

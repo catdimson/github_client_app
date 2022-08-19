@@ -17,10 +17,11 @@ class GithubUserViewHolder(
         }
     }
 
-    fun bind(item: GithubUser) {
-        binding.apply {
-            userId.text = item.id.toString()
-            userLogin.text = item.login
+    fun bind(item: GithubUser, listener: (GithubUser) -> Unit) {
+        binding.userId.text = item.id.toString()
+        binding.userLogin.text = item.login
+        binding.root.setOnClickListener {
+            listener.invoke(item)
         }
     }
 

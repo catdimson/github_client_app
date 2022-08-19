@@ -4,9 +4,6 @@ import com.example.githubclientapp.domain.entities.GithubRepo
 import com.example.githubclientapp.domain.entities.GithubUser
 import com.example.githubclientapp.domain.repository.GithubUserRepository
 import io.reactivex.rxjava3.core.Single
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,7 +14,7 @@ class RetrofitGithubUserApiImpl : GithubUserRepository {
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .build()
-    private val api : GithubApi = retrofit.create(GithubApi::class.java)
+    private val api: GithubApi = retrofit.create(GithubApi::class.java)
 
     override fun observeUsers(): Single<List<GithubUser>> {
         return api.findAll()

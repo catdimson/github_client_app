@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -28,6 +29,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs = ['-Xjvm-default=compatibility']
     }
     buildFeatures {
         viewBinding true
@@ -45,8 +47,13 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxkotlin:3.0.1'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
-    //Coil
+    // Coil
     implementation 'io.coil-kt:coil:0.9.2'
+
+    // Fragment
+    implementation 'androidx.fragment:fragment-ktx:1.5.2'
+
+    implementation 'com.github.kirich1409:viewbindingpropertydelegate:1.5.3'
 
     implementation 'androidx.activity:activity-ktx:1.4.0'
     implementation 'androidx.core:core-ktx:1.7.0'

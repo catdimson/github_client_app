@@ -5,14 +5,9 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/list_users_recycler_view"
-        android:layout_height="match_parent"
+    <FrameLayout
+        android:id="@+id/root_fragment_container"
         android:layout_width="match_parent"
-        android:layout_margin="16dp"/>
-
-    <include
-        android:id="@+id/loader"
-        layout="@layout/loading_layout" />
+        android:layout_height="match_parent" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
