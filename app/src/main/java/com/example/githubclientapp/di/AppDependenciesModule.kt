@@ -17,13 +17,11 @@ import javax.inject.Singleton
 @Module
 class AppDependenciesModule {
 
-    @Singleton
     @Provides
     fun provideUserDetailViewModel(githubUserRepository: GithubUserRepository): UserDetailViewModel {
         return UserDetailViewModel(githubUserRepository)
     }
 
-    @Singleton
     @Provides
     fun provideUserListViewModel(githubUserRepository: GithubUserRepository): UserListViewModel {
         return UserListViewModel(githubUserRepository)

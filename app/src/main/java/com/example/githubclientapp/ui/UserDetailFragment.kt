@@ -99,4 +99,9 @@ class UserDetailFragment : Fragment(R.layout.fragment_user_detail) {
             userDetailAvatar.load(githubUserDetail.avatarUrl)
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }
