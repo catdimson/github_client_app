@@ -1,20 +1,24 @@
 package com.example.githubclientapp
 
 import android.app.Application
-import com.example.githubclientapp.di.networkModule
-import com.example.githubclientapp.di.viewModelsModule
-import org.koin.android.ext.koin.androidContext
-import org.koin.android.ext.koin.androidLogger
-import org.koin.core.context.startKoin
+import android.content.Context
+import com.example.githubclientapp.di.AppDependenciesComponent
+import com.example.githubclientapp.di.AppDependenciesModule
+import com.example.githubclientapp.di.DaggerAppDependenciesComponent
 
 class App : Application() {
+    lateinit var appDependenciesComponent: AppDependenciesComponent
 
     override fun onCreate() {
         super.onCreate()
-        startKoin {
-            androidLogger()
-            androidContext(this@App)
-            modules(networkModule, viewModelsModule)
-        }
+        appDependenciesComponent = DaggerAppDependenciesComponent
+            .builder()
+            .appDependenciesModule(AppDependenciesModule())
+            .build()
     }
 }
+
+val Context.app: App
+    get() {
+        return applicationContext as App
+    }

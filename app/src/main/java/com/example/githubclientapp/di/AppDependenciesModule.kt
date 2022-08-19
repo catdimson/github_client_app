@@ -3,6 +3,9 @@ package com.example.githubclientapp.di
 import com.example.githubclientapp.data.GithubApi
 import com.example.githubclientapp.data.RetrofitGithubUserApiImpl
 import com.example.githubclientapp.domain.repository.GithubUserRepository
+import com.example.githubclientapp.ui.viewmodel.userdetail.UserDetailViewModel
+import com.example.githubclientapp.ui.viewmodel.userlist.UserListViewModel
+import com.example.githubclientapp.utils.ViewModelStore
 import dagger.Module
 import dagger.Provides
 import retrofit2.Converter
@@ -16,14 +19,26 @@ class AppDependenciesModule {
 
     @Singleton
     @Provides
-    fun provideGithubApi(retrofit: Retrofit): GithubApi {
-        return retrofit.create(GithubApi::class.java)
+    fun provideUserDetailViewModel(githubUserRepository: GithubUserRepository): UserDetailViewModel {
+        return UserDetailViewModel(githubUserRepository)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserListViewModel(githubUserRepository: GithubUserRepository): UserListViewModel {
+        return UserListViewModel(githubUserRepository)
     }
 
     @Singleton
     @Provides
     fun provideGithubUserRepository(api: GithubApi): GithubUserRepository {
         return RetrofitGithubUserApiImpl(api)
+    }
+
+    @Singleton
+    @Provides
+    fun provideGithubApi(retrofit: Retrofit): GithubApi {
+        return retrofit.create(GithubApi::class.java)
     }
 
     @Provides
@@ -38,11 +53,17 @@ class AppDependenciesModule {
 
     @Singleton
     @Provides
-    fun provideRetrofit(baseUrl: String, converterFactory: Converter.Factory) {
-        Retrofit.Builder()
+    fun provideRetrofit(baseUrl: String, converterFactory: Converter.Factory): Retrofit {
+        return Retrofit.Builder()
             .baseUrl(baseUrl)
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .addConverterFactory(converterFactory)
             .build()
+    }
+
+    @Singleton
+    @Provides
+    fun getViewModelStore(): ViewModelStore {
+        return ViewModelStore()
     }
 }
