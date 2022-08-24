@@ -7,22 +7,24 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.api.load
 import com.example.githubclientapp.R
-import com.example.githubclientapp.app
 import com.example.githubclientapp.databinding.FragmentUserDetailBinding
 import com.example.githubclientapp.domain.entities.GithubUser
 import com.example.githubclientapp.domain.entities.GithubUserDetail
 import com.example.githubclientapp.ui.recyclers.userdetail.adapter.GithubRepoAdapter
 import com.example.githubclientapp.ui.viewmodel.userdetail.UserDetailViewModel
-import java.util.*
+import com.example.githubclientapp.utils.ViewModelStore
+import org.koin.android.ext.android.inject
 
 const val KEY_USER = "KEY_USER"
 const val VM_USER_DETAIL_ID = "VM_USER_DETAIL_ID"
 
 class UserDetailFragment : Fragment(R.layout.fragment_user_detail) {
+    private val viewModelStore: ViewModelStore by inject()
     private var _binding: FragmentUserDetailBinding? = null
     private val binding: FragmentUserDetailBinding
         get() = _binding!!
-    private lateinit var viewModel: UserDetailViewModel
+    private val _viewModel: UserDetailViewModel by inject()
+    private var viewModel: UserDetailViewModel = _viewModel
     private val adapter = GithubRepoAdapter()
 
     companion object {
@@ -39,11 +41,9 @@ class UserDetailFragment : Fragment(R.layout.fragment_user_detail) {
 
         if (savedInstanceState != null) {
             val vmID = savedInstanceState.getString(VM_USER_DETAIL_ID)!!
-            viewModel = app.viewModelStore.getViewModel(vmID) as UserDetailViewModel
+            viewModel = viewModelStore.getViewModel(vmID) as UserDetailViewModel
         } else {
-            val id = UUID.randomUUID().toString()
-            viewModel = UserDetailViewModel(app.githubUserApi, id)
-            app.viewModelStore.saveViewModel(viewModel)
+            viewModelStore.saveViewModel(viewModel)
         }
     }
 
@@ -58,7 +58,7 @@ class UserDetailFragment : Fragment(R.layout.fragment_user_detail) {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(VM_USER_DETAIL_ID, viewModel.id)
+        outState.putString(VM_USER_DETAIL_ID, viewModel.vmID)
     }
 
     private fun getUserFromArgs(): GithubUser {

@@ -7,20 +7,23 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.githubclientapp.R
-import com.example.githubclientapp.app
 import com.example.githubclientapp.databinding.FragmentUserListBinding
 import com.example.githubclientapp.domain.entities.GithubUser
 import com.example.githubclientapp.ui.recyclers.main.adapter.GithubUserAdapter
 import com.example.githubclientapp.ui.viewmodel.userlist.UserListViewModel
-import java.util.*
+import com.example.githubclientapp.utils.ViewModelStore
+import org.koin.android.ext.android.inject
 
 const val VM_USER_LIST_ID = "VM_USER_LIST_ID"
 
 class UserListFragment : Fragment(R.layout.fragment_user_list) {
+    private val viewModelStore: ViewModelStore by inject()
     private var _binding: FragmentUserListBinding? = null
     private val binding: FragmentUserListBinding
         get() = _binding!!
-    private lateinit var viewModel: UserListViewModel
+    private val _viewModel: UserListViewModel by inject()
+    private var viewModel: UserListViewModel = _viewModel
+
     private val controller by lazy { activity as Controller }
     private val adapter = GithubUserAdapter {
         controller.openUserDetailFragment(it)
@@ -38,11 +41,9 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
 
         if (savedInstanceState != null) {
             val vmID = savedInstanceState.getString(VM_USER_LIST_ID)!!
-            viewModel = app.viewModelStore.getViewModel(vmID) as UserListViewModel
+            viewModel = viewModelStore.getViewModel(vmID) as UserListViewModel
         } else {
-            val id = UUID.randomUUID().toString()
-            viewModel = UserListViewModel(app.githubUserApi, id)
-            app.viewModelStore.saveViewModel(viewModel)
+            viewModelStore.saveViewModel(viewModel)
         }
     }
 
@@ -57,7 +58,7 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(VM_USER_LIST_ID, viewModel.id)
+        outState.putString(VM_USER_LIST_ID, viewModel.vmID)
     }
 
     private fun initView() {
